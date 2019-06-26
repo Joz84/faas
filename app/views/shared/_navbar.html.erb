@@ -12,6 +12,9 @@
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
         <li class="nav-item active">
+          <%= link_to "Ask Fouss", fouss_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item active">
           <%= link_to "Home", "#", class: "nav-link" %>
         </li>
         <li class="nav-item">

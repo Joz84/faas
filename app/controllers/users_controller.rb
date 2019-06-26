@@ -14,4 +14,7 @@ class UsersController < ApplicationController
     @timeline_schedule = @schedule.sort_by(&:date)
 
   end
+
+  def fouss
+  end
 end
