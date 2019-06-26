@@ -4,8 +4,18 @@ class ActivitiesController < ApplicationController
     if @activity.save
       redirect_to root_path
     else
-      @events = Event.all
+      @battle = Battle.new
+      @batch = Batch.find_by(number: "#290")
+      @event = Event.new
       @activities = Activity.all
+      @events = Event.all
+
+      @batch_events = Event.where(batch: @batch)
+      @batch_battles = Battle.where(batch: @batch)
+
+      @schedule = @batch_events + @batch_battles
+      @timeline_schedule = @schedule.sort_by(&:date)
+
       render "users/dashboard"
     end
   end
