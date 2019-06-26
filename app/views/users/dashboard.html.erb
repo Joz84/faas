@@ -44,7 +44,49 @@
 </div>
 
 
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">
+  Create a event
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <%= simple_form_for @event do |f| %>
+          <%= f.input :title %>
+          <%= f.input :content %>
+          <%= f.input :date %>
+          <%= f.input :link %>
+          <%= f.input :address %>
+          <%= f.input :city %>
+          <%= f.input :country %>
+          <%= f.button :submit %>
+        <% end %>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <div class="container">
+  <h2>Activities</h2>
   <div class="row">
     <% @activities.each do |activity| %>
       <div class="col-3">
@@ -54,6 +96,17 @@
   </div>
 </div>
 
+<hr>
 
 
+<div class="container">
+  <h2>Events</h2>
+  <div class="row">
+    <% @events.each do |event| %>
+      <div class="col-3">
+        <%= event.title %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
