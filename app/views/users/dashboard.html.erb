@@ -43,17 +43,6 @@
         </div>
       </div>
     </div>
-
-
-    <div class="container">
-      <div class="row">
-        <% @activities.each do |activity| %>
-          <div class="col-3">
-            <%= activity.name %>
-          </div>
-        <% end %>
-      </div>
-    </div>
   </div>
 
   <!-- <div class="timeline">
@@ -114,20 +103,17 @@
 
 <div class="container">
   <h2>Activities</h2>
-  <div class="row">
     <ul class="timeline">
     <% @activities.each do |activity| %>
-      <div class="col-3">
-
 
   <!-- Item 1 -->
       <li>
         <div class="direction-r">
           <div class="flag-wrapper">
             <span class="flag"><%= activity.name %></span>
-            <span class="time-wrapper"><span class="time">2013 - present</span></span>
+            <span class="time-wrapper"><span class="time"><%= activity.created_at.strftime('%d/%m/%Y') %></span></span>
           </div>
-          <div class="desc">My current employment. Way better than the position before!</div>
+          <div class="desc"><%= activity.content %></div>
         </div>
       </li>
 
@@ -159,15 +145,15 @@
 
 <hr>
 
-
+<!--
 <div class="container">
   <h2>Events</h2>
   <div class="row">
-    <% @events.each do |event| %>
+    <%# @events.each do |event| %>
       <div class="col-3">
-        <%= event.title %>
+        <%#= event.title %>
       </div>
-    <% end %>
+    <%# end %>
   </div>
 </div>
-
+ -->
