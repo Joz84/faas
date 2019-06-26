@@ -16,6 +16,10 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'country_select'
+gem 'cloudinary', '~> 1.9.1'
+gem 'carrierwave', '~> 1.2'
+gem 'dotenv-rails', groups: [:development, :test]
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'
