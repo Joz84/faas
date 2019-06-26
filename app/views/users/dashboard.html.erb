@@ -129,7 +129,7 @@
         <% end %>
 
           <div class="flag-wrapper">
-            <span class="flag" data-toggle="modal" data-target="#battleModal">
+            <span class="flag">
               <%= schedule.date.strftime('%d/%m/%Y') %>
             </span>
             <span class="time-wrapper"><span class="time">
@@ -140,11 +140,27 @@
           <% if schedule.is_a?(Battle) && schedule.choices.present? %>
 
               <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= schedule.choices.first.activity.photo.url %>')">
-                <%= schedule.choices.first.activity.name %>
+                <div class="text-center">
+                  <%= schedule.choices.first.activity.name %>
+                  <br>
+                  <%= schedule.choices.first.vote.to_i %>
+                  <%= link_to choice_path(schedule.choices.first), method: :patch do %>
+                    <i class="fas fa-thumbs-up"></i>
+                  <% end %>
+                </div>
               </div>
 
               <div class="card-category mt-2" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= schedule.choices.last.activity.photo.url %>')">
-                <%= schedule.choices.last.activity.name %>
+                <div class="text-center">
+                  <%= schedule.choices.second.activity.name %>
+                  <br>
+                  <%= schedule.choices.second.vote.to_i %>
+                  <%= link_to choice_path(schedule.choices.second), method: :patch do %>
+                    <i class="fas fa-thumbs-up"></i>
+                  <% end %>
+                </div>
+
+
               </div>
 
           <% end %>
@@ -152,26 +168,6 @@
       </li>
     <% end %>
   </ul>
-
-  <div class="modal fade" id="battleModal" tabindex="-1" role="dialog" aria-labelledby="battleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="activityModalLabel">See the Battle</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Hello
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
 </div>
 </div>
 
