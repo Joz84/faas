@@ -111,7 +111,7 @@
   <ul class="timeline">
     <%  @timeline_schedule.each do |schedule| %>
       <li>
-        <% if schedule.id.odd? %>
+        <% if schedule.is_a?(Event) %>
           <div class="direction-r">
         <% else %>
           <div class="direction-l">
