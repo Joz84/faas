@@ -19,14 +19,14 @@ ActiveRecord::Schema.define(version: 2019_06_26_113556) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
-    t.string "target"
+    t.integer "target"
     t.string "photo"
     t.string "link"
     t.string "address"
     t.string "city"
     t.string "country"
     t.bigint "user_id"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_activities_on_user_id"
