@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  belongs_to :batch
+  belongs_to :batch, optional: true
   has_many :activities
   has_many :batches
 end
