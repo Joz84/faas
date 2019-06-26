@@ -37,17 +37,12 @@ require 'nokogiri'
 cities = %w(g187147 g187079 g155032 g187514)
 
 cities.each do |city|
-  url = "https://www.tripadvisor.fr/Attractions-#{city}-Activities-c56-"
+    url = "https://www.tripadvisor.fr/Attractions-#{city}-Activities-c56-"
 
+    html_file = open(url).read
+    html_doc = Nokogiri::HTML(html_file)
 
-activities_url = html_doc.search('.listing_title a').map {|url| 'https://www.tripadvisor.fr' + url.values.first }
-
-activities_url.first(3).each do |activity|
-  html_file = open(activity).read
-
-  html_doc = Nokogiri::HTML(html_file)
-
-  activities_url = html_doc.search('.listing_title a').map {|url| 'https://www.tripadvisor.fr' + url.values.first }
+    activities_url = html_doc.search('.listing_title a').map {|url| 'https://www.tripadvisor.fr' + url.values.first }
 
   activities_url.first(5).each do |activity|
     html_file = open(activity).read
