@@ -1,57 +1,112 @@
-<h1>Users#dashboard</h1>
-<p>Find me in app/views/users/dashboard.html.erb</p>
+<div class="container">
+  <div class="row">
+
+    <h1>Fouss and Furious</h1>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#activityModal">
+      Create a new activity
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="activityModalLabel">Create my activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#activityModal">
-  Create a new activity
-</button>
+            <%= simple_form_for @activity do |f| %>
+              <%= f.input :name %>
+              <%= f.input :link %>
+              <%= f.input :address %>
+              <%= f.input :city %>
+              <%= f.input :country %>
+              <%= f.input :target, collection: Activity.targets %>
+              <%= f.button :submit %>
+            <% end %>
 
-<!-- Modal -->
-<div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="activityModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
+    </div>
 
 
-        <%= simple_form_for @activity do |f| %>
-          <%= f.input :name %>
-          <%= f.input :link %>
-          <%= f.input :address %>
-          <%= f.input :city %>
-          <%= f.input :country %>
-          <%= f.input :target, collection: Activity.targets %>
-          <%= f.button :submit %>
+    <div class="container">
+      <div class="row">
+        <% @activities.each do |activity| %>
+          <div class="col-3">
+            <%= activity.name %>
+          </div>
         <% end %>
-
-
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
-</div>
 
-
-<div class="container">
-  <div class="row">
-    <% @activities.each do |activity| %>
-      <div class="col-3">
-        <%= activity.name %>
+  <!-- <div class="timeline">
+    <%# @events.each do |event| %>
+      <div class="event">
+        <div class="card">
+          <p>🤦‍♀️</p>
+          <p>Title</p>
+          <p>Content</p>
+        </div>
+        <div class="circle">
+        </div>
       </div>
-    <% end %>
-  </div>
+    <%# end %>
+  </div> -->
+
+  <ul class="timeline">
+
+  <!-- Item 1 -->
+  <li>
+    <div class="direction-r">
+      <div class="flag-wrapper">
+        <span class="flag">Freelancer</span>
+        <span class="time-wrapper"><span class="time">2013 - present</span></span>
+      </div>
+      <div class="desc">My current employment. Way better than the position before!</div>
+    </div>
+  </li>
+
+  <!-- Item 2 -->
+  <li>
+    <div class="direction-l">
+      <div class="flag-wrapper">
+        <span class="flag">Apple Inc.</span>
+        <span class="time-wrapper"><span class="time">2011 - 2013</span></span>
+      </div>
+      <div class="desc">My first employer. All the stuff I've learned and projects I've been working on.</div>
+    </div>
+  </li>
+
+  <!-- Item 3 -->
+  <li>
+    <div class="direction-r">
+      <div class="flag-wrapper">
+        <span class="flag">Harvard University</span>
+        <span class="time-wrapper"><span class="time">2008 - 2011</span></span>
+      </div>
+      <div class="desc">A description of all the lectures and courses I have taken and my final degree?</div>
+    </div>
+  </li>
+
+</ul>
+
 </div>
 
 
