@@ -27,7 +27,7 @@ User.create(email: "coco@gmail.com", password:"azerty", first_name: "Corine", la
 
 puts 'Create event'
 
-Event.create(title: "How to deal with SEO ?", content: "SEO - Google Update, SEO it is dead ?", photo: nil, link: "", address: "16 Villa Gaudelet", city: "Paris", country: "France")
+Event.create(title: "How to deal with SEO ?", content: "SEO - Google Update, SEO it is dead ?", photo: nil, link: "", address: "16 Villa Gaudelet", city: "Paris", country: "France", batch_id: paris.id, date: Date.new(2019,7,5))
 
 puts ' Create activity Team Building'
 
@@ -37,12 +37,12 @@ require 'nokogiri'
 cities = %w(g187147 g187079 g155032 g187514)
 
 cities.each do |city|
-  url = "https://www.tripadvisor.fr/Attractions-#{city}-Activities-c56-"
+    url = "https://www.tripadvisor.fr/Attractions-#{city}-Activities-c56-"
 
-  html_file = open(url).read
-  html_doc = Nokogiri::HTML(html_file)
+    html_file = open(url).read
+    html_doc = Nokogiri::HTML(html_file)
 
-  activities_url = html_doc.search('.listing_title a').map {|url| 'https://www.tripadvisor.fr' + url.values.first }
+    activities_url = html_doc.search('.listing_title a').map {|url| 'https://www.tripadvisor.fr' + url.values.first }
 
   activities_url.first(5).each do |activity|
     html_file = open(activity).read
@@ -77,13 +77,13 @@ b4 = Battle.create(batch_id: paris.id, date: Date.new(2019,7,14), deadline: Date
 
 puts 'Create Choice'
 
-Choice.create(battle_id: paris.id, activity_id: Activity.second, vote: 3)
-Choice.create(battle_id: paris.id, activity_id: Activity.first, vote: 5)
+Choice.create(battle_id: b1.id, activity: Activity.second, vote: 3)
+Choice.create(battle_id: b1.id, activity: Activity.first, vote: 5)
 
 
-Choice.create(battle_id: paris.id, activity_id: Activity.third, vote: 12)
-Choice.create(battle_id: paris.id, activity_id: Activity.all[3], vote: 1)
+Choice.create(battle_id: b2.id, activity: Activity.third, vote: 12)
+Choice.create(battle_id: b2.id, activity: Activity.second, vote: 1)
 
-Choice.create(battle_id: paris.id, activity_id: Activity.all[4], vote: 4)
-Choice.create(battle_id: paris.id, activity_id: Activity.all[1], vote: 18)
+Choice.create(battle_id: b3.id, activity: Activity.third, vote: 4)
+Choice.create(battle_id: b3.id, activity: Activity.first, vote: 18)
 
