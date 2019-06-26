@@ -147,9 +147,10 @@
 
 <div class="container">
   <ul class="timeline">
-    <%  @timeline_schedule.each do |schedule| %>
+    <%  @timeline_schedule.each_with_index do |schedule, index| %>
       <li>
-        <% if schedule.is_a?(Event) %>
+        <%# if schedule.is_a?(Event) %>
+        <% if index.odd? %>
           <div class="direction-r">
         <% else %>
           <div class="direction-l">
