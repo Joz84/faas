@@ -1,3 +1,12 @@
+
+<h1>Les évènements de votre batch <%= current_user.batch.number %></h1>
+
+<% @timeline_schedule.each do |schedule| %>
+  <hr>
+    <%= schedule.date.strftime("%D") %> - <%= schedule.title %>
+<% end %>
+
+
 <div class="container">
   <div class="row">
 
