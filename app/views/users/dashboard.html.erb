@@ -13,18 +13,18 @@
   </div>
 </div>
 
-<h1>Les évènements de votre batch <%= current_user.batch.number %></h1>
 
-<% @timeline_schedule.each do |schedule| %>
-  <hr>
-    <%= schedule.date.strftime("%D") %> - <%= schedule.title %>
-<% end %>
+<h1>Les évènements du batch <%= current_user.batch.number %></h1>
+
+<%# @timeline_schedule.each do |schedule| %>
+  <!-- <hr> -->
+    <%#= schedule.date.strftime("%D") %> <!-- - --> <%#= schedule.title %>
+<%# end %>
 
 
 <div class="container">
   <div class="row">
 
-    <h1>Fouss and Furious</h1>
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#activityModal">
@@ -42,8 +42,6 @@
             </button>
           </div>
           <div class="modal-body">
-
-
             <%= simple_form_for @activity do |f| %>
               <%= f.input :name %>
               <%= f.input :link %>
@@ -101,61 +99,115 @@
 </div>
 
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#battleModal">
+  Create a battle
+</button>
 
-
-<div class="container">
-  <h2>Activities</h2>
-    <ul class="timeline">
-    <% @activities.each do |activity| %>
-
-  <!-- Item 1 -->
-      <li>
-        <div class="direction-r">
-          <div class="flag-wrapper">
-            <span class="flag"><%= activity.name %></span>
-            <span class="time-wrapper"><span class="time"><%= activity.created_at.strftime('%d/%m/%Y') %></span></span>
-          </div>
-          <div class="desc"><%= activity.content %></div>
-        </div>
-      </li>
-
-      <!-- Item 2 -->
-      <li>
-        <div class="direction-l">
-          <div class="flag-wrapper">
-            <span class="flag">Apple Inc.</span>
-            <span class="time-wrapper"><span class="time">2011 - 2013</span></span>
-          </div>
-          <div class="desc">My first employer. All the stuff I've learned and projects I've been working on.</div>
-        </div>
-      </li>
-
-      <!-- Item 3 -->
-      <li>
-        <div class="direction-r">
-          <div class="flag-wrapper">
-            <span class="flag">Harvard University</span>
-            <span class="time-wrapper"><span class="time">2008 - 2011</span></span>
-          </div>
-          <div class="desc">A description of all the lectures and courses I have taken and my final degree?</div>
-        </div>
-      </li>
-  <% end %>
-</ul>
-
-</div>
-
-<hr>
-
-<!--
-<div class="container">
-  <h2>Events</h2>
-  <div class="row">
-    <%# @events.each do |event| %>
-      <div class="col-3">
-        <%#= event.title %>
+<!-- Modal -->
+<div class="modal fade" id="battleModal" tabindex="-1" role="dialog" aria-labelledby="battleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="battleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    <%# end %>
+      <div class="modal-body">
+
+
+
+        <h1>New Battle</h1>
+        <%= simple_form_for @battle do |f| %>
+          <%= f.input :date %>
+          <%= f.input :deadline %>
+
+          <%= f.simple_fields_for :choices, Choice.new do |choice| %>
+            <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
+          <% end %>
+
+          <%= f.simple_fields_for :choices, Choice.new do |choice| %>
+            <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
+          <% end %>
+
+          <%= f.submit 'Create Project' %>
+        <% end %>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>
- -->
+
+
+<div class="container">
+  <ul class="timeline">
+    <%  @timeline_schedule.each do |schedule| %>
+      <li>
+        <% if schedule.is_a?(Event) %>
+          <div class="direction-r">
+        <% else %>
+          <div class="direction-l">
+        <% end %>
+
+          <div class="flag-wrapper">
+            <span class="flag" data-toggle="modal" data-target="#battleModal">
+              <%= schedule.date.strftime('%d/%m/%Y') %>
+            </span>
+            <span class="time-wrapper"><span class="time">
+              <%= schedule.is_a?(Event) ? "Talk" : "Battle" %>
+            </span></span>
+          </div>
+          <div class="desc"><%= schedule.title %></div>
+          <% if schedule.is_a?(Battle) && schedule.choices.present? %>
+
+              <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= schedule.choices.first.activity.photo.url %>')">
+                <%= schedule.choices.first.activity.name %>
+              </div>
+
+              <div class="card-category mt-2" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= schedule.choices.last.activity.photo.url %>')">
+                <%= schedule.choices.last.activity.name %>
+              </div>
+
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="modal fade" id="battleModal" tabindex="-1" role="dialog" aria-labelledby="battleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="activityModalLabel">See the Battle</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+
+            Hello
+
+
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+</div>
+

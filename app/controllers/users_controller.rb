@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def dashboard
-    @batch = Batch.where(number: "#290")
+    @battle = Battle.new
+    @batch = Batch.find_by(number: "#290")
     @activity = Activity.new
     @event = Event.new
     @activities = Activity.all
@@ -12,5 +13,8 @@ class UsersController < ApplicationController
     @schedule = @batch_events + @batch_battles
     @timeline_schedule = @schedule.sort_by(&:date)
 
+  end
+
+  def fouss
   end
 end
