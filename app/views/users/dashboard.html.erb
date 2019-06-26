@@ -70,45 +70,104 @@
     <%# end %>
   </div> -->
 
-  <ul class="timeline">
 
-  <!-- Item 1 -->
-  <li>
-    <div class="direction-r">
-      <div class="flag-wrapper">
-        <span class="flag">Freelancer</span>
-        <span class="time-wrapper"><span class="time">2013 - present</span></span>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">
+  Create a event
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="desc">My current employment. Way better than the position before!</div>
-    </div>
-  </li>
+      <div class="modal-body">
 
-  <!-- Item 2 -->
-  <li>
-    <div class="direction-l">
-      <div class="flag-wrapper">
-        <span class="flag">Apple Inc.</span>
-        <span class="time-wrapper"><span class="time">2011 - 2013</span></span>
+        <%= simple_form_for @event do |f| %>
+          <%= f.input :title %>
+          <%= f.input :content %>
+          <%= f.input :date %>
+          <%= f.input :link %>
+          <%= f.input :address %>
+          <%= f.input :city %>
+          <%= f.input :country %>
+          <%= f.button :submit %>
+        <% end %>
+
       </div>
-      <div class="desc">My first employer. All the stuff I've learned and projects I've been working on.</div>
-    </div>
-  </li>
-
-  <!-- Item 3 -->
-  <li>
-    <div class="direction-r">
-      <div class="flag-wrapper">
-        <span class="flag">Harvard University</span>
-        <span class="time-wrapper"><span class="time">2008 - 2011</span></span>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
-      <div class="desc">A description of all the lectures and courses I have taken and my final degree?</div>
     </div>
-  </li>
-
-</ul>
-
+  </div>
 </div>
 
 
 
+
+<div class="container">
+  <h2>Activities</h2>
+  <div class="row">
+    <ul class="timeline">
+    <% @activities.each do |activity| %>
+      <div class="col-3">
+
+
+  <!-- Item 1 -->
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="flag"><%= activity.name %></span>
+            <span class="time-wrapper"><span class="time">2013 - present</span></span>
+          </div>
+          <div class="desc">My current employment. Way better than the position before!</div>
+        </div>
+      </li>
+
+      <!-- Item 2 -->
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="flag">Apple Inc.</span>
+            <span class="time-wrapper"><span class="time">2011 - 2013</span></span>
+          </div>
+          <div class="desc">My first employer. All the stuff I've learned and projects I've been working on.</div>
+        </div>
+      </li>
+
+      <!-- Item 3 -->
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="flag">Harvard University</span>
+            <span class="time-wrapper"><span class="time">2008 - 2011</span></span>
+          </div>
+          <div class="desc">A description of all the lectures and courses I have taken and my final degree?</div>
+        </div>
+      </li>
+  <% end %>
+</ul>
+
+</div>
+
+<hr>
+
+
+<div class="container">
+  <h2>Events</h2>
+  <div class="row">
+    <% @events.each do |event| %>
+      <div class="col-3">
+        <%= event.title %>
+      </div>
+    <% end %>
+  </div>
+</div>
 

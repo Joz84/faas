@@ -4,6 +4,7 @@ class ActivitiesController < ApplicationController
     if @activity.save
       redirect_to root_path
     else
+      @events = Event.all
       @activities = Activity.all
       render "users/dashboard"
     end
