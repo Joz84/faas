@@ -1,3 +1,5 @@
 class Activity < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
+
+  enum status: { confirmed: 0, cancelled: 1 }
 end
