@@ -10,68 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_26_113556) do
+ActiveRecord::Schema.define(version: 2019_06_26_105835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "activities", force: :cascade do |t|
-    t.string "name"
-    t.string "target"
-    t.string "photo"
-    t.string "link"
-    t.string "address"
-    t.string "city"
-    t.string "country"
-    t.bigint "user_id"
-    t.integer "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_activities_on_user_id"
-  end
-
-  create_table "batches", force: :cascade do |t|
-    t.string "number"
-    t.string "country"
-    t.string "city"
-    t.date "start_at"
-    t.date "end_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_batches_on_user_id"
-  end
-
-  create_table "battles", force: :cascade do |t|
-    t.bigint "batch_id"
-    t.datetime "date"
-    t.datetime "deadline"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["batch_id"], name: "index_battles_on_batch_id"
-  end
-
-  create_table "choices", force: :cascade do |t|
-    t.bigint "battle_id"
-    t.bigint "activity_id"
-    t.integer "vote"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["activity_id"], name: "index_choices_on_activity_id"
-    t.index ["battle_id"], name: "index_choices_on_battle_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.string "title"
-    t.string "content"
-    t.string "photo"
-    t.string "link"
-    t.string "address"
-    t.string "city"
-    t.string "country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -81,19 +23,8 @@ ActiveRecord::Schema.define(version: 2019_06_26_113556) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "last_name"
-    t.boolean "driver"
-    t.bigint "batch_id"
-    t.index ["batch_id"], name: "index_users_on_batch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "activities", "users"
-  add_foreign_key "batches", "users"
-  add_foreign_key "battles", "batches"
-  add_foreign_key "choices", "activities"
-  add_foreign_key "choices", "battles"
-  add_foreign_key "users", "batches"
 end
