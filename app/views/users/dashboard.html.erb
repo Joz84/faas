@@ -1,7 +1,13 @@
-<h1>Users#dashboard</h1>
-<p>Find me in app/views/users/dashboard.html.erb</p>
+<h1>Les évènements de votre batch <%= current_user.batch.number %></h1>
+
+<% @timeline_schedule.each do |schedule| %>
+  <hr>
+    <%= schedule.date.strftime("%D") %> - <%= schedule.title %>
+<% end %>
 
 
+
+<p>-------------  modales à trier-------------</p>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#activityModal">
   Create a new activity
