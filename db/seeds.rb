@@ -52,7 +52,7 @@ activities_url.first(5).each do |activity|
   p address = ("#{html_doc.at('.street-address').text} #{html_doc.at('.locality').text}").split(',').first
   p country = ("#{html_doc.at('.street-address').text} #{html_doc.at('.country-name').text}").split(',').last
   p image = html_doc.at('.prw_common_basic_image img').values[1]
-  a = Activity.new(name: title, target: 0, address: address, link: activity, country: country, status: 0 )
+  a = Activity.new(name: title, target: 0, address: address, link: activity, country: country, status: 0, content: description )
   a.remote_photo_url = image
   a.save
   puts '-------------------------'
