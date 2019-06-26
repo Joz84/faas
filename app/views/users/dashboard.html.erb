@@ -1,3 +1,17 @@
+<div class="sub_navbar">
+  <div class="container">
+    <div class="section-nav">
+        <div class="left-nav">
+          <button type="button" class="section-nav" data-toggle="modal" data-target="#eventModal">Create a event</button></a>
+          <button type="button" class="section-nav" data-toggle="modal" data-target="#activityModal">Create a new activity</button>
+          <button type="button" class="section-nav" data-toggle="modal" data-target="">Create a battle for Event</button>
+        </div>
+        <div class="right-nav">
+          <a href="">#250 Biscarosse v</a>
+        </div>
+    </div>
+  </div>
+</div>
 
 
 <h1>Les évènements du batch <%= current_user.batch.number %></h1>
@@ -51,27 +65,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="timeline">
-    <%# @events.each do |event| %>
-      <div class="event">
-        <div class="card">
-          <p>🤦‍♀️</p>
-          <p>Title</p>
-          <p>Content</p>
-        </div>
-        <div class="circle">
-        </div>
-      </div>
-    <%# end %>
-  </div> -->
-
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eventModal">
-  Create a event
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
