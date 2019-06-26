@@ -52,16 +52,16 @@ activities_url.first(5).each do |activity|
   p address = ("#{html_doc.at('.street-address').text} #{html_doc.at('.locality').text}").split(',').first
   p country = ("#{html_doc.at('.street-address').text} #{html_doc.at('.country-name').text}").split(',').last
   p image = html_doc.at('.prw_common_basic_image img').values[1]
-  a = Activity.new(name: title, target: "Team Building", address: address, link: activity, country: country, status: 0 )
-  # a.remote_photo_url = image
+  a = Activity.new(name: title, target: 0, address: address, link: activity, country: country, status: 0 )
+  a.remote_photo_url = image
   a.save
   puts '-------------------------'
 end
 
 
 puts 'Create activity Ice Breaker'
-a1 = Activity.create(name: "Know your Buddy", target: "Ice Breaker", address: "16 Villa Gaudelet", city: "Paris", country: "France", status: 0)
-a2 = Activity.create(name: "Superhero", target: "Ice Breaker", address: "16 Villa Gaudelet", city: "Paris", country: "France", status: 0)
+a1 = Activity.create(name: "Know your Buddy", target: 1, address: "16 Villa Gaudelet", city: "Paris", country: "France", status: 0)
+a2 = Activity.create(name: "Superhero", target: 1, address: "16 Villa Gaudelet", city: "Paris", country: "France", status: 0)
 
 
 puts 'Create Battle'
