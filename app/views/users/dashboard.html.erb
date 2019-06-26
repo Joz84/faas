@@ -109,6 +109,56 @@
 
 
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#battleModal">
+  Create a battle
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="battleModal" tabindex="-1" role="dialog" aria-labelledby="battleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="battleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <h1>New Battle</h1>
+        <%= simple_form_for @battle do |f| %>
+          <%= f.input :date %>
+          <%= f.input :deadline %>
+
+          <%= f.simple_fields_for :choices, Choice.new do |choice| %>
+            <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
+          <% end %>
+
+          <%= f.simple_fields_for :choices, Choice.new do |choice| %>
+            <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
+          <% end %>
+
+          <%= f.submit 'Create Project' %>
+        <% end %>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 <div class="container">
   <h2>Activities</h2>
@@ -166,3 +216,6 @@
   </div>
 </div>
  -->
+
+
+

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def dashboard
-    @batch = Batch.where(number: "#290")
+    @battle = Battle.new
+    @batch = Batch.find_by(number: "#290")
     @activity = Activity.new
     @event = Event.new
     @activities = Activity.all
