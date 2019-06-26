@@ -13,7 +13,7 @@ puts 'Create batch'
 bordeaux = Batch.create(number: "#276", country: "France", city: "Bordeaux", start_at: Date.new(2019,7,01), end_at: Date.new(2019,8,31))
 paris = Batch.create(number: "#290", country: "France", city: "Paris", start_at: Date.new(2019,7,01), end_at: Date.new(2019,8,31))
 madrid = Batch.create(number: "#279", country: "Espagne", city: "Madrid", start_at: Date.new(2019,7,01), end_at: Date.new(2019,8,31))
-bali = Batch.create(number: "#284", country: "Bali", city: "Bali", start_at: Date.new(2019,7,01), end_at: Date.new(2019,8,31))
+bali = Batch.create(number: "#284", country: "Canada", city: "Montreal", start_at: Date.new(2019,7,01), end_at: Date.new(2019,8,31))
 
 puts 'Create driver'
 
@@ -34,30 +34,37 @@ puts ' Create activity Team Building'
 require 'open-uri'
 require 'nokogiri'
 
-city = 'paris'
-url = "https://www.tripadvisor.fr/Attractions-g187147-Activities-c56-#{city}"
+cities = %w(g187147 g187079 g155032 g187514)
 
-html_file = open(url).read
-html_doc = Nokogiri::HTML(html_file)
+cities.each do |city|
+  url = "https://www.tripadvisor.fr/Attractions-#{city}-Activities-c56-"
+
 
 activities_url = html_doc.search('.listing_title a').map {|url| 'https://www.tripadvisor.fr' + url.values.first }
 
 activities_url.first(3).each do |activity|
   html_file = open(activity).read
+
   html_doc = Nokogiri::HTML(html_file)
-  puts '-------------------------'
 
-  p title = html_doc.search('#HEADING').text
-  p description = html_doc.search('.attractions-attraction-detail-about-card-AttractionDetailAboutCard__section--1_Efg span:first-child').text
-  p address = ("#{html_doc.at('.street-address').text} #{html_doc.at('.locality').text}").split(',').first
-  p country = ("#{html_doc.at('.street-address').text} #{html_doc.at('.country-name').text}").split(',').last
-  p image = html_doc.at('.prw_common_basic_image img').values[1]
-  a = Activity.new(name: title, target: 0, address: address, link: activity, country: country, status: 0, content: description )
-  a.remote_photo_url = image
-  a.save
-  puts '-------------------------'
+  activities_url = html_doc.search('.listing_title a').map {|url| 'https://www.tripadvisor.fr' + url.values.first }
+
+  activities_url.first(5).each do |activity|
+    html_file = open(activity).read
+    html_doc = Nokogiri::HTML(html_file)
+    puts '-------------------------'
+
+    p title = html_doc.search('#HEADING').text
+    p description = html_doc.search('.attractions-attraction-detail-about-card-AttractionDetailAboutCard__section--1_Efg span:first-child').text
+    p address = ("#{html_doc.at('.street-address').text} #{html_doc.at('.locality').text}").split(',').first
+    p country = html_doc.at('.country-name').text
+    p image = html_doc.at('.prw_common_basic_image img').values[1]
+    a = Activity.new(name: title, target: 0, address: address, link: activity, country: country, status: 0, content: description )
+    a.remote_photo_url = image
+    a.save
+    puts '-------------------------'
+  end
 end
-
 
 puts 'Create activity Ice Breaker'
 a1 = Activity.create(name: "Know your Buddy", target: 1, address: "16 Villa Gaudelet", city: "Paris", country: "France", status: 0)
