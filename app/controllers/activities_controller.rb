@@ -1,4 +1,9 @@
 class ActivitiesController < ApplicationController
+
+  def index
+    @activities = Activity.all
+  end
+
   def create
     @activity = current_user.activities.new(activity_params)
     if @activity.save

@@ -11,3 +11,16 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.small-banner {
+  background-size: cover;
+  background-position: center;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
