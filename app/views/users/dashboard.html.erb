@@ -12,6 +12,12 @@
     </div>
   </div>
 </div>
+
+
+<div class="small-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path "banner.jpg" %>)">
+  <i class="fas fa-quote-left"></i>&nbsp;&nbsp;Ha&nbsp;&nbsp;<i class="fas fa-quote-right"></i>
+</div>
+
 <div class="container">
 <div class="title-page mt-5 mb-5">
   <h1 class="title-dashboard">Les évènements du<br>batch <span class="red"><%= current_user.batch.number %></span></h1>
@@ -26,27 +32,37 @@
     <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="activityModalLabel">Create my activity</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <%= simple_form_for @activity do |f| %>
-              <%= f.input :name %>
-              <%= f.input :link %>
-              <%= f.input :address %>
-              <%= f.input :city %>
-              <%= f.input :country %>
-              <%= f.input :target, collection: Activity.targets %>
-              <%= f.button :submit %>
-            <% end %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          <%= simple_form_for @activity do |f| %>
+            <div class="modal-header">
+              <h5 class="modal-title" id="activityModalLabel">Create my activity</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <%#= image_tag "fouss.png", class: "w-100" %>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col-6">
+                    <%= f.input :name %>
+                    <%= f.input :link %>
+                    <%= f.input :target, collection: Activity.targets %>
+                  </div>
+                  <div class="col-md-6">
+                    <%= f.input :address %>
+                    <%= f.input :city %>
+                    <%= f.input :country %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <%= f.button :submit, class: "btn btn-success" %>
+            </div>
+          <% end %>
+
         </div>
       </div>
     </div>
@@ -56,28 +72,35 @@
 <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="eventModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for @event do |f| %>
-          <%= f.input :title %>
-          <%= f.input :content %>
-          <%= f.input :date %>
-          <%= f.input :link %>
-          <%= f.input :address %>
-          <%= f.input :city %>
-          <%= f.input :country %>
-          <%= f.button :submit %>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <%= simple_form_for @event do |f| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="eventModalLabel">Create a Event</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <%= f.input :title %>
+                  <%= f.input :content %>
+                  <%= f.input :link %>
+                </div>
+                <div class="col-6">
+                  <%= f.input :address %>
+                  <%= f.input :city %>
+                  <%= f.input :country %>
+                </div>
+              </div>
+              <%= f.input :date %>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= f.button :submit, class: "btn btn-success" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -86,33 +109,36 @@
 <div class="modal fade" id="battleModal" tabindex="-1" role="dialog" aria-labelledby="battleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="battleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h1>New Battle</h1>
-        <%= simple_form_for @battle do |f| %>
-          <%= f.input :date %>
-          <%= f.input :deadline %>
-
-          <%= f.simple_fields_for :choices, Choice.new do |choice| %>
-            <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
-          <% end %>
-
-          <%= f.simple_fields_for :choices, Choice.new do |choice| %>
-            <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
-          <% end %>
-
-          <%= f.submit 'Create Project' %>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <%= simple_form_for @battle do |f| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="battleModalLabel">Create a battle</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <%= f.simple_fields_for :choices, Choice.new do |choice| %>
+                  <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
+                <% end %>
+              </div>
+              <div class="col-6">
+                <%= f.simple_fields_for :choices, Choice.new do |choice| %>
+                  <%= choice.input :activity_id, collection: Activity.all.map{|activity| [activity.name, activity.id]} %>
+                <% end %>
+              </div>
+              <%= f.input :date %>
+              <%= f.input :deadline %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= f.button :submit, class: "btn btn-success" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -1,0 +1,40 @@
+<div class="sub_navbar">
+  <div class="container">
+    <div class="section-nav">
+        <div class="left-nav">
+
+        </div>
+        <div class="right-nav">
+          <a href="">Batch <%= current_user.batch.number %></a>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="small-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_path "banner.jpg" %>)">
+    <i class="fas fa-quote-left"></i>&nbsp;&nbsp;Ha&nbsp;&nbsp;<i class="fas fa-quote-right"></i>
+</div>
+
+<div class="container">
+<div class="title-page mt-5 mb-5">
+  <h1 class="title-dashboard">Les évènements du<br>batch <span class="red"><%= current_user.batch.number %></span></h1>
+</div>
+
+<div class="container">
+  <div class="row">
+    <% @activities.each do |activity| %>
+      <div class="col-md-4">
+        <%= link_to activity.link do %>
+          <div class="card-category my-2" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= activity.photo.url %>')">
+            <div class="text-center">
+              <h4><%= activity.name %></h4>
+              <p><%= activity.country %></p>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

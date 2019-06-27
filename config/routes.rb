@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :choices, only: [:update]
   resources :battles, only: [:create]
-  resources :activities, only: [:create]
+  resources :activities, only: [:index, :create]
   resources :events, only: [:create]
 end
